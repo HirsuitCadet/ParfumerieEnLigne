@@ -1,0 +1,27 @@
+CREATE TABLE products (
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(255) NOT NULL,
+description TEXT,
+price DECIMAL(10,2) NOT NULL,
+image VARCHAR(255),
+category INT NOT NULL DEFAULT 0,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE orders (
+id INT AUTO_INCREMENT PRIMARY KEY,
+customer_name VARCHAR(255),
+customer_email VARCHAR(255),
+total DECIMAL(10,2),
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE order_items (
+id INT AUTO_INCREMENT PRIMARY KEY,
+order_id INT,
+product_id INT,
+quantity INT,
+price DECIMAL(10,2)
+);
