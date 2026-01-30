@@ -140,3 +140,55 @@
     track.scrollTo({ left: loopWidth, behavior: "auto" });
   });
 })();
+
+(function () {
+  const toggleButtons = document.querySelectorAll("[data-toggle-password]");
+  toggleButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const wrapper = button.closest(".auth-input-wrap");
+      const input = wrapper ? wrapper.querySelector("input") : null;
+      if (!input) return;
+
+      const isHidden = input.type === "password";
+      input.type = isHidden ? "text" : "password";
+      button.textContent = isHidden ? "Masquer" : "Afficher";
+      button.setAttribute("aria-pressed", isHidden ? "true" : "false");
+    });
+  });
+
+  const signupForm = document.querySelector('[data-auth-form="signup"]');
+  if (!signupForm) return;
+
+  const passwordInput = signupForm.querySelector('input[name="password"]');
+  const confirmInput = signupForm.querySelector('input[name="confirm"]');
+  const termsInput = signupForm.querySelector('input[name="terms"]');
+  const matchError = signupForm.querySelector('[data-error="password-match"]');
+  const termsError = signupForm.querySelector('[data-error="terms"]');
+
+  function setError(el, show) {
+    if (!el) return;
+    el.hidden = !show;
+  }
+
+  signupForm.addEventListener("submit", (event) => {
+    let hasError = false;
+
+    if (passwordInput && confirmInput && passwordInput.value !== confirmInput.value) {
+      setError(matchError, true);
+      hasError = true;
+    } else {
+      setError(matchError, false);
+    }
+
+    if (termsInput && !termsInput.checked) {
+      setError(termsError, true);
+      hasError = true;
+    } else {
+      setError(termsError, false);
+    }
+
+    if (hasError) {
+      event.preventDefault();
+    }
+  });
+})();

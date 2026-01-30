@@ -43,6 +43,14 @@ switch ($uri) {
         require __DIR__ . '/Views/cgv.php';
         break;
 
+    case '/signin':
+        require __DIR__ . '/Views/signin.php';
+        break;
+
+    case '/signup':
+        require __DIR__ . '/Views/signup.php';
+        break;
+
     default:
         http_response_code(404);
         echo "404";
