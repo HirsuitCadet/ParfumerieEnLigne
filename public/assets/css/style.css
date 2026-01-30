@@ -153,6 +153,8 @@ body{
   position: relative;
   margin: 0 0 24px;
   padding: 0;
+  display: flex;
+  justify-content: center;
 
   /* Plein écran sans dépasser */
   width: 100%;
@@ -172,7 +174,9 @@ body{
 .carousel-track{
   display: flex;
   gap: 26px;
-  padding: 0 18px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   overflow-x: auto;
   overflow-y: hidden;
 
@@ -180,6 +184,8 @@ body{
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
+  scroll-padding-left: 0;
+  scroll-padding-right: 0;
 }
 .carousel-track::-webkit-scrollbar{ display:none; }
 
@@ -226,15 +232,20 @@ body{
   transform: translateY(-50%);
   border:0;
   background: transparent;
-  color: #1a73e8;
-  font-size: 56px;
+  color: #1b66ff;
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 1;
+  width: 52px;
+  height: 52px;
   cursor:pointer;
-  padding: 0 10px;
+  padding: 0;
   z-index:10;
   user-select:none;
 }
-.carousel-arrow.left{ left: 6px; }
-.carousel-arrow.right{ right: 6px; }
+.carousel-arrow.left{ left: 16px; }
+.carousel-arrow.right{ right: 16px; }
+.carousel-arrow:hover{ color:#0d54e8; }
 
 @media (max-width: 1100px){
   .carousel-card{
@@ -623,3 +634,5 @@ body{
   .footer-inner{ grid-template-columns: 1fr; }
   .brand-logo{ height: 52px; }
 }
+
+

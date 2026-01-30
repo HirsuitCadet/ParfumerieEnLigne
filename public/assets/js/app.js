@@ -7,15 +7,13 @@
   const right = car.querySelector('.carousel-arrow.right');
 
   const GAP = 26;
-  const AUTOPLAY_MS = 4500; // un tout petit peu plus long
+  const AUTOPLAY_MS = 3500;
 
   let originalCards = [];
   let clones = [];
+  let loopWidth = 0;
   let timer = null;
-
-  function visibleCount() {
-    return window.innerWidth < 1100 ? 1 : 3;
-  }
+  let restoringBehavior = false;
 
   function stepPx() {
     const first = track.querySelector('.carousel-card');
@@ -29,34 +27,55 @@
   }
 
   function rebuildClones() {
-    // Ne garde que les cartes non-clones comme “originales”
     originalCards = Array.from(track.querySelectorAll('.carousel-card'))
       .filter(el => !el.dataset.clone);
 
     clearClones();
 
-    const n = Math.min(visibleCount(), originalCards.length);
+    const n = originalCards.length;
+    for (let i = n - 1; i >= 0; i--) {
+      const before = originalCards[i].cloneNode(true);
+      before.dataset.clone = "1";
+      track.insertBefore(before, track.firstChild);
+      clones.push(before);
+    }
     for (let i = 0; i < n; i++) {
-      const c = originalCards[i].cloneNode(true);
-      c.dataset.clone = "1";
-      track.appendChild(c);
-      clones.push(c);
+      const after = originalCards[i].cloneNode(true);
+      after.dataset.clone = "1";
+      track.appendChild(after);
+      clones.push(after);
+    }
+
+    const firstOriginal = originalCards[0];
+    const lastOriginal = originalCards[originalCards.length - 1];
+    if (firstOriginal && lastOriginal) {
+      loopWidth = (lastOriginal.offsetLeft + lastOriginal.offsetWidth) - firstOriginal.offsetLeft;
+    } else {
+      loopWidth = 0;
     }
   }
 
-  function thresholdPx() {
-    // Largeur scrollable correspondant uniquement aux cartes originales
-    const step = stepPx();
-    return step ? step * originalCards.length : 0;
+  function fixIfOnClones() {
+    if (!loopWidth) return;
+
+    if (track.scrollLeft >= loopWidth * 2) {
+      jumpWithoutSmooth(-loopWidth);
+    } else if (track.scrollLeft <= 0) {
+      jumpWithoutSmooth(loopWidth);
+    }
   }
 
-  function fixIfOnClones() {
-    const t = thresholdPx();
-    if (!t) return;
-
-    // Si on est passé dans la zone des clones, on “téléporte” au début
-    if (track.scrollLeft >= t) {
-      track.scrollTo({ left: track.scrollLeft - t, behavior: "auto" });
+  function jumpWithoutSmooth(delta) {
+    if (!delta) return;
+    const prev = track.style.scrollBehavior;
+    track.style.scrollBehavior = "auto";
+    track.scrollLeft += delta;
+    if (!restoringBehavior) {
+      restoringBehavior = true;
+      requestAnimationFrame(() => {
+        track.style.scrollBehavior = prev;
+        restoringBehavior = false;
+      });
     }
   }
 
@@ -64,30 +83,37 @@
     const step = stepPx();
     if (!step) return;
 
+    if (track.scrollLeft >= loopWidth * 2 - step - 2) {
+      jumpWithoutSmooth(-loopWidth);
+    }
+
     track.scrollBy({ left: step, behavior: "smooth" });
-    // Après l’animation, on corrige si on est dans les clones
-    setTimeout(fixIfOnClones, 700);
   }
 
   function prev() {
     const step = stepPx();
     if (!step) return;
 
-    // Optionnel : prev propre, mais le sens autoplay reste toujours à droite
-    if (track.scrollLeft <= 1) {
-      const t = thresholdPx();
-      track.scrollTo({ left: t, behavior: "auto" });
-      requestAnimationFrame(() => {
-        track.scrollBy({ left: -step, behavior: "smooth" });
-      });
-      return;
+    if (track.scrollLeft <= step + 2) {
+      jumpWithoutSmooth(loopWidth);
     }
+
     track.scrollBy({ left: -step, behavior: "smooth" });
   }
 
   function start() {
     stop();
-    timer = setInterval(next, AUTOPLAY_MS);
+    // Autoplay image par image, vers la droite.
+    timer = setInterval(() => {
+      const step = stepPx();
+      if (!step) return;
+
+      if (track.scrollLeft >= loopWidth * 2 - step - 2) {
+        jumpWithoutSmooth(-loopWidth);
+      }
+
+      track.scrollBy({ left: step, behavior: "smooth" });
+    }, AUTOPLAY_MS);
   }
   function stop() {
     if (timer) clearInterval(timer);
@@ -96,7 +122,7 @@
 
   // Init
   rebuildClones();
-  track.scrollTo({ left: 0, behavior: "auto" });
+  track.scrollTo({ left: loopWidth, behavior: "auto" });
   start();
 
   right?.addEventListener("click", next);
@@ -105,14 +131,12 @@
   car.addEventListener("mouseenter", stop);
   car.addEventListener("mouseleave", start);
 
-  // Si l’utilisateur scrolle à la main, on corrige aussi
   track.addEventListener("scroll", () => {
     requestAnimationFrame(fixIfOnClones);
   });
 
   window.addEventListener("resize", () => {
-    const current = track.scrollLeft;
     rebuildClones();
-    track.scrollTo({ left: current, behavior: "auto" });
+    track.scrollTo({ left: loopWidth, behavior: "auto" });
   });
 })();
