@@ -23,9 +23,22 @@
     </a>
 
     <div class="top-icons">
-      <a class="icon-btn" href="/signin" aria-label="Compte">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Zm0 2c-4.1 0-7.5 2.2-7.5 5v1h15v-1c0-2.8-3.4-5-7.5-5Z"/></svg>
-      </a>
+      <?php if (!empty($_SESSION['user'])): ?>
+        <div class="user-menu">
+          <button class="icon-btn user-menu-toggle" type="button" aria-label="Compte" aria-haspopup="true" aria-expanded="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Zm0 2c-4.1 0-7.5 2.2-7.5 5v1h15v-1c0-2.8-3.4-5-7.5-5Z"/></svg>
+          </button>
+          <div class="user-menu-dropdown" role="menu">
+            <a href="/profile" role="menuitem">Informations du profil</a>
+            <a href="/orders" role="menuitem">Mes commandes</a>
+            <a href="/logout" role="menuitem">Deconnexion</a>
+          </div>
+        </div>
+      <?php else: ?>
+        <a class="icon-btn" href="/signin" aria-label="Compte">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0-4.5-4.5A4.5 4.5 0 0 0 12 12Zm0 2c-4.1 0-7.5 2.2-7.5 5v1h15v-1c0-2.8-3.4-5-7.5-5Z"/></svg>
+        </a>
+      <?php endif; ?>
       <a class="icon-btn" href="/cart" aria-label="Panier">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18a2 2 0 1 0 2 2 2 2 0 0 0-2-2Zm10 0a2 2 0 1 0 2 2 2 2 0 0 0-2-2ZM6.2 6l.5 2h12.7a1 1 0 0 1 1 .8l-1 6a1 1 0 0 1-1 .8H8a1 1 0 0 1-1-.8L5.3 4.8H3V3h3a1 1 0 0 1 1 .8L7.2 6Z"/></svg>
       </a>

@@ -25,3 +25,18 @@ product_id INT,
 quantity INT,
 price DECIMAL(10,2)
 );
+
+CREATE TABLE users (
+id INT AUTO_INCREMENT PRIMARY KEY,
+firstname VARCHAR(100),
+lastname VARCHAR(100),
+email VARCHAR(255) NOT NULL UNIQUE,
+phone VARCHAR(30),
+birthdate DATE,
+postal VARCHAR(20),
+town VARCHAR(120),
+address VARCHAR(255),
+country VARCHAR(120),
+password_hash VARCHAR(255) NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
