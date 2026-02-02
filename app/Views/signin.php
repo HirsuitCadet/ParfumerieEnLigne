@@ -1,5 +1,7 @@
 <?php
 $title = "Connexion";
+$errors = $errors ?? ['email' => '', 'password' => ''];
+$old = $old ?? ['email' => ''];
 ob_start();
 ?>
 
@@ -15,7 +17,10 @@ ob_start();
     <form class="auth-form" method="post" action="/signin" data-auth-form="signin" novalidate>
       <label class="auth-field">
         <span class="auth-label">Email</span>
-        <input class="auth-input" type="email" name="email" required autocomplete="email" />
+        <input class="auth-input" type="email" name="email" required autocomplete="email" value="<?= htmlspecialchars($old['email'] ?? '') ?>" />
+        <?php if (!empty($errors['email'])): ?>
+          <p class="auth-error"><?= htmlspecialchars($errors['email']) ?></p>
+        <?php endif; ?>
       </label>
 
       <label class="auth-field">
@@ -24,6 +29,9 @@ ob_start();
           <input class="auth-input" type="password" name="password" required autocomplete="current-password" />
           <button class="auth-toggle" type="button" data-toggle-password aria-label="Afficher le mot de passe" aria-pressed="false">Afficher</button>
         </span>
+        <?php if (!empty($errors['password'])): ?>
+          <p class="auth-error"><?= htmlspecialchars($errors['password']) ?></p>
+        <?php endif; ?>
       </label>
 
       <a class="auth-link" href="/">Mot de passe oublié ?</a>

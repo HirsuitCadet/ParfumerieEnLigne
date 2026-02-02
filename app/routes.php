@@ -1,4 +1,8 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 if ($uri !== '/' && str_ends_with($uri, '/')) {
@@ -44,11 +48,20 @@ switch ($uri) {
         break;
 
     case '/signin':
-        require __DIR__ . '/Views/signin.php';
+        require __DIR__ . '/Controllers/SigninController.php';
         break;
 
     case '/signup':
-        require __DIR__ . '/Views/signup.php';
+        require __DIR__ . '/Controllers/SignupController.php';
+        break;
+    case '/profile':
+        require __DIR__ . '/Controllers/ProfileController.php';
+        break;
+    case '/orders':
+        require __DIR__ . '/Controllers/OrdersController.php';
+        break;
+    case '/logout':
+        require __DIR__ . '/Controllers/LogoutController.php';
         break;
 
     default:
