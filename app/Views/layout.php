@@ -96,9 +96,8 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
       <div class="nav-item has-dropdown">
         <a href="/products?cat=parfums" class="nav-link">PARFUMS <span class="caret">▼</span></a>
         <div class="dropdown">
-          <a href="/products?cat=parfums">Tous les parfums</a>
+          <a href="/products?cat=parfums">Parfums</a>
           <a href="/products?cat=gourmet">Parfums gourmands</a>
-          <a href="/products?cat=intime">Musc Tahara intimes</a>
         </div>
       </div>
 
