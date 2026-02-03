@@ -27,6 +27,10 @@ switch ($uri) {
         require __DIR__ . '/Controllers/OrderController.php';
         break;
 
+    case '/checkout':
+        require __DIR__ . '/Controllers/CheckoutController.php';
+        break;
+
     case '/about':
         require __DIR__ . '/Views/about.php';
         break;
@@ -59,6 +63,9 @@ switch ($uri) {
         break;
     case '/orders':
         require __DIR__ . '/Controllers/OrdersController.php';
+        break;
+    case '/thank-you':
+        require __DIR__ . '/Controllers/ThankYouController.php';
         break;
     case '/logout':
         require __DIR__ . '/Controllers/LogoutController.php';

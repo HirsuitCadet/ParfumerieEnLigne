@@ -232,3 +232,40 @@
     });
   });
 })();
+
+(function () {
+  const cartLink = document.querySelector(".cart-link");
+  const panel = document.querySelector(".cart-panel");
+  const backdrop = document.querySelector("[data-cart-backdrop]");
+  const closeBtn = document.querySelector("[data-cart-close]");
+
+  if (!cartLink || !panel || !backdrop) return;
+
+  function openPanel() {
+    document.body.classList.add("cart-panel-open");
+    cartLink.setAttribute("aria-expanded", "true");
+  }
+
+  function closePanel() {
+    document.body.classList.remove("cart-panel-open");
+    cartLink.setAttribute("aria-expanded", "false");
+  }
+
+  cartLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    if (document.body.classList.contains("cart-panel-open")) {
+      closePanel();
+    } else {
+      openPanel();
+    }
+  });
+
+  backdrop.addEventListener("click", closePanel);
+  closeBtn?.addEventListener("click", closePanel);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closePanel();
+    }
+  });
+})();

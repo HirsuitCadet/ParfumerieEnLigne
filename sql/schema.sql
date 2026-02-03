@@ -11,6 +11,7 @@ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
 CREATE TABLE orders (
 id INT AUTO_INCREMENT PRIMARY KEY,
+user_id INT,
 customer_name VARCHAR(255),
 customer_email VARCHAR(255),
 total DECIMAL(10,2),
