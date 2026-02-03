@@ -60,7 +60,6 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
 <body>
 <header class="site-header">
   <div class="topbar">
-    <button class="lang-btn" type="button">FR</button>
 
     <a href="/" class="brand">
       <img src="/assets/img/logo.png" alt="Maison Eau D'Or" class="brand-logo">
