@@ -26,6 +26,13 @@ $image = $product["image"] ?: "/assets/img/products/ahlam.png";
 if ($image && $image[0] !== "/") {
     $image = "/" . ltrim($image, "/");
 }
+$maxQty = 99;
+if (isset($product["stock"])) {
+    $stockValue = (int) $product["stock"];
+    if ($stockValue > 0) {
+        $maxQty = $stockValue;
+    }
+}
 $backSlug = $catId !== null && isset($categorySlugs[$catId]) ? $categorySlugs[$catId] : null;
 $backHref = $backSlug ? "/products?cat=" . $backSlug : "/products";
 ob_start();
@@ -50,10 +57,15 @@ ob_start();
           <?= nl2br(htmlspecialchars($product["description"])) ?>
         </div>
       <?php endif; ?>
-      <div class="product-actions">
-        <a class="product-cta" href="/cart">Ajouter au panier</a>
-        <a class="product-ghost" href="/order">Acheter maintenant</a>
-      </div>
+      <form class="product-actions" method="post" action="/cart">
+        <input type="hidden" name="product_id" value="<?= (int) ($product["id"] ?? 0) ?>">
+        <label class="product-qty">
+          <span>Quantite</span>
+          <input type="number" name="quantity" min="1" max="<?= (int) $maxQty ?>" value="1">
+        </label>
+        <button class="product-cta" type="submit" name="action" value="add">Ajouter au panier</button>
+        <button class="product-ghost" type="submit" name="action" value="buy">Acheter maintenant</button>
+      </form>
     </div>
   </div>
 </section>
