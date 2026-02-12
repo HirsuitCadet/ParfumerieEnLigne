@@ -75,12 +75,7 @@ ob_start();
 
     <h2>À propos de la présente politique</h2>
     <p>Nous pouvons modifier ponctuellement la politique sur les cookies, en tout ou en partie, à notre discrétion. La dernière version de ce document sera toujours disponible sur notre site Internet et prendra effet à la date de sa mise à jour.</p>
-
-    <h2>Mettre à jour vos préférences</h2>
-    <p>Vous pouvez personnaliser vos choix en ce qui concerne les cookies (sauf les cookies nécessaires) en cliquant sur le bouton « Paramètres des cookies » ci-dessous :</p>
-    <div class="policy-actions">
-      <button class="product-ghost" type="button">Paramètres de cookies</button>
-    </div>
+    <br><br>
     <p>Pour toutes questions, veuillez contacter <a href="/contact">Maison Eau D'or</a>.</p>
   </div>
 </section>
