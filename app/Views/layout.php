@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -94,7 +94,7 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
   <nav class="nav">
     <div class="nav-inner">
       <div class="nav-item has-dropdown">
-        <a href="/products?cat=parfums" class="nav-link">PARFUMS <span class="caret">â–¼</span></a>
+        <a href="/products?cat=parfums" class="nav-link">PARFUMS <span class="caret">▼</span></a>
         <div class="dropdown">
           <a href="/products?cat=parfums">Parfums</a>
           <a href="/products?cat=gourmet">Parfums gourmands</a>
@@ -103,7 +103,7 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
 
       <a href="/products?cat=maison" class="nav-link">MAISON</a>
       <a href="/products?cat=musc" class="nav-link">MUSC TAHARA INTIMES</a>
-      <a href="/products?cat=cosmetiques" class="nav-link">COSMÃ‰TIQUES</a>
+      <a href="/products?cat=cosmetiques" class="nav-link">COSMÉTIQUES</a>
       <a href="/products?cat=brumes" class="nav-link">BRUMES</a>
       <a href="/products?cat=capillaires" class="nav-link">PRODUITS CAPILLAIRES</a>
     </div>
@@ -118,15 +118,15 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
   <section class="benefits">
     <div class="benefits-inner">
       <div class="benefit">
-        <div class="benefit-icon">ðŸ›¡ï¸</div>
+        <div class="benefit-icon">🛡️</div>
         <div class="benefit-text">
-          <div class="benefit-title">Paiement sÃ©curisÃ©</div>
+          <div class="benefit-title">Paiement sécurisé</div>
           <div class="benefit-sub">Paypal, CB, Apple Pay</div>
         </div>
       </div>
 
       <div class="benefit">
-        <div class="benefit-icon">ðŸ“¦</div>
+        <div class="benefit-icon">📦</div>
         <div class="benefit-text">
           <div class="benefit-title">Livraison en</div>
           <div class="benefit-sub">Europe</div>
@@ -158,7 +158,7 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
           <li><a href="/products?cat=parfums">Parfums</a></li>
           <li><a href="/products?cat=maison">Maison</a></li>
           <li><a href="/products?cat=musc">Musc Tahara intime</a></li>
-          <li><a href="/products?cat=cosmetiques">CosmÃ©tiques</a></li>
+          <li><a href="/products?cat=cosmetiques">Cosmétiques</a></li>
           <li><a href="/products?cat=brumes">Brumes corps & cheveux</a></li>
           <li><a href="/products?cat=capillaires">Produits capillaires</a></li>
         </ul>
@@ -167,11 +167,11 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
       <div class="footer-col">
         <h3>Besoin d'aide</h3>
         <ul>
-          <li><a href="/about">Ã€ propos</a></li>
+          <li><a href="/about">À propos</a></li>
           <li><a href="/contact">Contactez-nous</a></li>
-          <li><a href="/privacy">Politique de confidentialitÃ©</a></li>
+          <li><a href="/privacy">Politique de confidentialité</a></li>
           <li><a href="/cookies">Politique de cookies</a></li>
-          <li><a href="/cgv">Conditions gÃ©nÃ©rales de vente</a></li>
+          <li><a href="/cgv">Conditions générales de vente</a></li>
         </ul>
       </div>
     </div>
@@ -182,7 +182,7 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
 <aside class="cart-panel" aria-label="Panier" role="dialog" aria-modal="true">
   <div class="cart-panel-header">
     <div class="cart-panel-title">Votre panier</div>
-    <button class="cart-panel-close" type="button" aria-label="Fermer" data-cart-close>Ã—</button>
+    <button class="cart-panel-close" type="button" aria-label="Fermer" data-cart-close>×</button>
   </div>
   <div class="cart-panel-body">
     <?php if (empty($cartPanelItems)): ?>
@@ -201,7 +201,7 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
             <div class="cart-panel-info">
               <div class="cart-panel-name"><?= htmlspecialchars($item['name']) ?></div>
               <div class="cart-panel-meta">
-                <span><?= number_format($item['price'], 2, ",", " ") ?> â‚¬ / unitÃ©</span>
+                <span><?= number_format($item['price'], 2, ",", " ") ?> € / unité</span>
               </div>
               <div class="cart-panel-actions">
                 <form class="cart-panel-qty-form" method="post" action="/cart">
@@ -211,7 +211,7 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
                     <span>Quantite</span>
                     <input type="number" name="quantity" min="1" max="99" value="<?= (int) $item['quantity'] ?>">
                   </label>
-                  <button class="cart-panel-btn" type="submit">Mettre Ã  jour</button>
+                  <button class="cart-panel-btn" type="submit">Mettre à jour</button>
                 </form>
                 <form method="post" action="/cart">
                   <input type="hidden" name="product_id" value="<?= (int) $item['id'] ?>">
@@ -221,7 +221,7 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
               </div>
             </div>
             <div class="cart-panel-line">
-              <?= number_format($item['line_total'], 2, ",", " ") ?> â‚¬
+              <?= number_format($item['line_total'], 2, ",", " ") ?> €
             </div>
           </div>
         <?php endforeach; ?>
@@ -233,15 +233,15 @@ if (!empty($_SESSION['cart']['items']) && is_array($_SESSION['cart']['items'])) 
       <div class="cart-panel-totals">
         <div class="cart-panel-row">
           <span>Total HT</span>
-          <strong><?= number_format($cartPanelTotal, 2, ",", " ") ?> â‚¬</strong>
+          <strong><?= number_format($cartPanelTotal, 2, ",", " ") ?> €</strong>
         </div>
         <div class="cart-panel-row">
           <span>TVA (20%)</span>
-          <strong><?= number_format($cartPanelTax, 2, ",", " ") ?> â‚¬</strong>
+          <strong><?= number_format($cartPanelTax, 2, ",", " ") ?> €</strong>
         </div>
         <div class="cart-panel-row cart-panel-row--total">
           <span>Total TTC</span>
-          <strong><?= number_format($cartPanelTotalTtc, 2, ",", " ") ?> â‚¬</strong>
+          <strong><?= number_format($cartPanelTotalTtc, 2, ",", " ") ?> €</strong>
         </div>
       </div>
     <?php endif; ?>
